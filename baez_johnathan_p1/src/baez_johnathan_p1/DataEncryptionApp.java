@@ -7,11 +7,8 @@ public class DataEncryptionApp {
 	public static void main(String[] args) {
 		
 	    final int MAX_LENGTH = 4;
-	    int num = 0;
-	    int next = 0;
-	    
-	    
-	
+	    int num = 0; int next = 0;  
+	    	
 	    System.out.print("Enter 4 digit number: ");
 	    
 	    // Scan for user input
@@ -22,7 +19,7 @@ public class DataEncryptionApp {
 				  
 			    num = scanner.nextInt();
 			    
-			    	if(String.valueOf(num).length() <= MAX_LENGTH){
+			    	if(String.valueOf(num).length() >= MAX_LENGTH && String.valueOf(num).length() <= MAX_LENGTH ){
 			    		break scanner;
 			    } 
 			    else {
@@ -37,31 +34,41 @@ public class DataEncryptionApp {
 			  }
 		}
 	    
+	    // Num entered
 		System.out.println("Number Entered: " + num);
 		
-		// Display encrypted function
-		System.out.println("Encrypted Value: " + encrypted(num));
-		next = encrypted(num);
 		
-		// Display decrypted function
-		System.out.println("Encrypted Value: " + decrypted(next));
+		next = encrypted(num);		
+		decrypted(next);
 	}
 	
 	// encrypted function
 	static int encrypted(int num) {
+		
 		int passValue = 0;
-		// convert num to i
-		int i = num;
-		int j = 10;
-			
-		// Addresult = Add 7 + user input
-			i += 7;
-		// Take the module of the result 
-			i %= j;
-		// modResult = passValue
-			passValue= i;
-			
-			
+		int n = num;
+		int n0, n1, n2, n3;
+    	
+		// 
+		n0 = n % 10;
+    	n = n / 10;
+    	n1 = n % 10;
+    	n = n / 10;
+    	n2 = n % 10;
+    	n = n / 10;
+    	n3 = n % 10;
+    	n = n / 10;
+		
+    	n3 = (n3+7)%10;
+    	n2 = (n2+7)%10;
+		n1 = (n1+7)%10;
+		n0 = (n0+7)%10;
+    	
+		passValue =  ((n1*1000) + (n0*100) + (n3*10) + (n2*1));
+		
+		// Display Encrypted Code
+		System.out.println("Encrypted Code: " + passValue);	
+		
 		// Return passValue
 		return passValue;
 	}
@@ -69,13 +76,28 @@ public class DataEncryptionApp {
 	// decrypted function (To Be Continue...)
 	static int decrypted(int next) {
 		int value = 0;
-	    int k = 0;
+		int n = next;
+		int n0, n1, n2, n3;
+    	
+		// 
+		n0 = n % 10;
+    	n = n / 10;
+    	n1 = n % 10;
+    	n = n / 10;
+    	n2 = n % 10;
+    	n = n / 10;
+    	n3 = n % 10;
+    	n = n / 10;
+		
+    	n3 = (n3+10) -7;
+    	n2 = (n2+10) -7;
+		n1 = (n1+10) -7;
+		n0 = (n0+10) -7;
 	    
-	    // Take next and make it k
-	    k = next;
-	    
-	    // Tempt - To be DELETED - 
-	    value = k;
+		value = ((n1*1000) + (n0*100) + (n3*10) + (n2*1));
+		
+	    System.out.println("Decrypt Code: " + value);
+	 
 	    
 	    
 		return value;

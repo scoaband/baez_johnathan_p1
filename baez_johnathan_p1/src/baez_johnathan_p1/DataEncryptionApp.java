@@ -1,60 +1,80 @@
 /**
  * Author Johnathan Baez
  * University of Central Florida
+ * Class: COP3330
  */
 
 package baez_johnathan_p1;
 
 import java.util.Scanner;
 
-public class DataEncryptionApp {
+public class DataEncryptionApp extends Datadecryption {
 
 	public static void main(String[] args) {
 		
-	    final int MAX_LENGTH = 4;
-	    int num = 0; int next = 0;  
-	    	
-	    System.out.print("Enter 4 digit number: ");
+		final int MAX_LENGTH = 4;
+		String numero = "0";
+	    int num = 0; int next = 0;
 	    
+	    System.out.print("Enter 4 digit number: \n");
 	    // Scan for user input
 	    Scanner scanner = new Scanner(System.in);
 	    scanner:
 		while(scanner.hasNext()) {
 			// Check for Integer input
-			  if(scanner.hasNextInt()){
-				  
+		  if(scanner.hasNextInt()){
 				// copy input to num 
 			    num = scanner.nextInt();
 			    
-			    	// 
-			    	if(String.valueOf(num).length() >= MAX_LENGTH && String.valueOf(num).length() <= MAX_LENGTH){
-			    		break scanner;
+			    // Check if num.length is < than MAX_LENGTH
+			    	if(MAX_LENGTH < String.valueOf(num).length()){
+			    		System.out.println("Invalid entry, try again\n");
+					      System.out.print("Enter 4 digit number: ");
+			    		
+			    	
 			    } 
 			    else {
-			      System.out.println("Invalid entry, try again");
-			      System.out.print("\n Enter a 4 digit number: ");
+			    	
+			    	break scanner;
+			     
 			    }
-			  } 
-			  else {
-			    System.out.println("Invalid Input");
-			    System.out.print("Enter a number: ");
-			    scanner.next();
-			  }
-		}
+		  } 
+		  else {
+			  // Only numbers
+		    System.out.println("Invalid Input, number only!");
+		    System.out.print("Enter 4 digit number: ");
+		    scanner.next();
+		  }
+		}   
+	    // Allow four zero to print.
+	    int v0 = num % 10;
+    	num = num / 10;
+    	int v1 = num % 10;
+    	num = num / 10;
+    	int v2 = num % 10;
+    	num = num / 10;
+    	int v3 = num % 10;
+    	num = num / 10;
+    	
+    	numero = v3 +""+ v2 +""+ v1 +""+ v0;
 	    
 	    // Num entered
-		System.out.println("Number Entered: " + num);
+		System.out.println("Number Entered: " + numero);
 		
-		
-		next = encrypted(num);		
+		next = encrypted(numero);		
 		decrypted(next);
+		
+		scanner.close();
 	}
 	
+	
+	
 	// encrypted function
-	static int encrypted(int num) {
+	static int encrypted(String num) {
 		
 		int passValue = 0;
-		int n = num;
+		// Convert from Sring to Int.
+		int n = Integer.parseInt(num);
 		int n0, n1, n2, n3;
     	
 		// Tokenizing the Num Value.
@@ -81,38 +101,6 @@ public class DataEncryptionApp {
 		
 		// Return passValue
 		return passValue;
-	}
-	
-	
-	
-	// decrypted function (To Be Continue...)
-	static int decrypted(int next) {
-		int value = 0;
-		int n = next;
-		int n0, n1, n2, n3;
-    	
-		// Tokenizing the Encrypted Code.
-		n0 = n % 10;
-    	n = n / 10;
-    	n1 = n % 10;
-    	n = n / 10;
-    	n2 = n % 10;
-    	n = n / 10;
-    	n3 = n % 10;
-		
-    	
-    	n0 = (n0+3);
-    	n0 = n0 % 10;
-    	n1 = (n1+3);
-    	n1 = n1 % 10;
-    	n2 = (n2+3);
-    	n2 = n2 % 10;
-    	n3 = (n3+3);
-    	n3 = n3 % 10;
-
-	    System.out.println("Decrypt Code: " + (n1) +""+ (n0) +""+ (n3) +""+ (n2));
-
-		return value;
 	}
 
 }
